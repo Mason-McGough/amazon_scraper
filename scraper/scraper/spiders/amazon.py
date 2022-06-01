@@ -40,5 +40,6 @@ class AmazonSpider(scrapy.Spider):
         image_array = selector.xpath('//property[@name="colorImages"]//property[@name="hiRes"]/string/text()').extract()
         amazon_product['images'] = image_array
         amazon_product['image_count'] = len(image_array)
+        amazon_product['product_details'] = response.xpath('//*[@id="detailBullets_feature_div"]').get()
 
         yield amazon_product

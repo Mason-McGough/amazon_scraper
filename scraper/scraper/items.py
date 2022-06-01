@@ -13,3 +13,4 @@ class AmazonProduct(scrapy.Item):
     bullet_point = scrapy.Field()
     images = scrapy.Field()
     image_count = scrapy.Field()
+    product_details = scrapy.Field()

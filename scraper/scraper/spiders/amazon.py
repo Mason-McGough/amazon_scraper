@@ -36,10 +36,15 @@ class AmazonSpider(scrapy.Spider):
         amazon_product = AmazonProduct()
         amazon_product['asin'] = response.xpath('//*[@id="ASIN"]').attrib['value']
         amazon_product['item_name'] = response.xpath('//*[@id="productTitle"]//text()').get().strip()
-        amazon_product['bullet_point'] = response.css('#feature-bullets').css('.a-list-item::text').getall()
+        bullet_point = response.css('#feature-bullets').css('.a-list-item::text').getall()
+        cleaned_bullets = []
+        for i in bullet_point:
+            if (i != ' ' and i != '\n'):
+                cleaned_bullets.append(i)
+        amazon_product['bullet_point'] = cleaned_bullets
         js = response.xpath("//script[contains(text(), 'register(\"ImageBlockATF\"')]/text()").extract_first()
-        xml = js2xml.parse(js)                                                  
-        selector = scrapy.Selector(root=xml)                                   
+        xml = js2xml.parse(js)
+        selector = scrapy.Selector(root=xml)
         image_array = selector.xpath('//property[@name="colorImages"]//property[@name="hiRes"]/string/text()').extract()
         amazon_product['images'] = image_array
         amazon_product['image_count'] = len(image_array)

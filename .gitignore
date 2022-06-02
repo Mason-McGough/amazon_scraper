@@ -1,4 +1,4 @@
 venv
 .env
 scraper/logs
-scraper/.scrapy/*
+scraper/.scrapy/httpcache

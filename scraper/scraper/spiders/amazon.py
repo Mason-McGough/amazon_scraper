@@ -48,16 +48,17 @@ class AmazonSpider(scrapy.Spider):
         image_array = selector.xpath('//property[@name="colorImages"]//property[@name="hiRes"]/string/text()').extract()
         amazon_product['images'] = image_array
         amazon_product['image_count'] = len(image_array)
-        # parsed_details = []
-        # details = response.xpath('//*[@id="detailBullets_feature_div"]/ul/li').getall()
-        # if not details:
-        #     # details = response.xpath('//*[@id="prodDetails"]/div/div/div/div/table/tr').getall()
-        #     details = response.css('table[.prodDetTable]').getall()
-        #     # for row in details: 
-        #     #     print(row)
-        #         # header = row.xpath('//*[th]//text()').get()
-        #         # data = row.xpath('//*[td]//text()').get()
-        #         # parsed_details.append(header + ': ' + data)
-        # amazon_product['product_details'] = details
+        parsed_details = []
+        details = response.xpath('//*[@id="detailBullets_feature_div"]/ul/li').getall()
+        if not details:
+            details = response.css('.prodDetTable')
+            for table in details:
+                rows = table.xpath('//tr[not(@id) and not(@class)]')
+                for row in rows: 
+                    header = row.css('.prodDetSectionEntry::text').get()
+                    data = row.css('.prodDetAttrValue::text').get()
+                    if header and data:
+                        parsed_details.append(header + ': ' + data)
+        amazon_product['product_details'] = parsed_details
 
         yield amazon_product

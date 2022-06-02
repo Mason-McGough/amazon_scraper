@@ -82,11 +82,13 @@ export default {
       for (let i = 0; i < products.length; i++) {
         const url = products[i].trim();
         console.log(url)
+        let proxied_url = `http://api.scraperapi.com/?api_key=${import.meta.env.VITE_PROXY_API_KEY}&url=${url}`
+        console.log(proxied_url)
         let response = await this.axios.post(
           "http://localhost:9080/crawl.json?spider_name=amazon",
           {
             request: {
-              url: url,
+              url: proxied_url,
             },
             spider_name: "amazon",
           }, {

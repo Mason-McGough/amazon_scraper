@@ -58,7 +58,7 @@ class AmazonSpider(scrapy.Spider):
                     header = row.css('.prodDetSectionEntry::text').get()
                     data = row.css('.prodDetAttrValue::text').get()
                     if header and data:
-                        parsed_details.append(header + ': ' + data)
+                        parsed_details.append(header.strip() + ': ' + data.strip())
         amazon_product['product_details'] = parsed_details
 
         yield amazon_product

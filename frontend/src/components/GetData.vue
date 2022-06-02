@@ -25,7 +25,13 @@
           </template>
         </Column>
         <Column field="image_count" header="Number of Images" />
-        <Column field="product_details" header="Details" />
+        <Column field="product_details" header="Details" >
+            <template #body="slotProps">
+            <ul>
+              <li v-for="li, i in slotProps.data.product_details" :key="i">{{li}}</li>
+            </ul>
+          </template>
+        </Column>
       </DataTable> 
     </div>
   </div>
@@ -69,7 +75,8 @@ export default {
         "https://m.media-amazon.com/images/I/71YguAQd9jL._SL1500_.jpg",
         "https://m.media-amazon.com/images/I/71zqahvJcWL._SL1500_.jpg"
     ],
-    "image_count": 5
+    "image_count": 5,
+    "product_details": [ "Manufacturer: Mantra Enterprise", "Part Number: B5155RB", "Item Weight: 15.2 ounces", "Package Dimensions: 4.37 x 3.31 x 2.68 inches", "Item model number: B5155RB", "Is Discontinued By Manufacturer: No", "Item Package Quantity: 1", "Number Of Holes: 2", "Batteries Included?: No", "Batteries Required?: No", "ASIN: B006X628BE", "Date First Available: January 13, 2012", "Manufacturer: Mantra Enterprise", "Part Number: B5155RB", "Item Weight: 15.2 ounces", "Package Dimensions: 4.37 x 3.31 x 2.68 inches", "Item model number: B5155RB", "Is Discontinued By Manufacturer: No", "Item Package Quantity: 1", "Number Of Holes: 2", "Batteries Included?: No", "Batteries Required?: No", "ASIN: B006X628BE", "Date First Available: January 13, 2012", "Manufacturer: Mantra Enterprise", "Part Number: B5155RB", "Item Weight: 15.2 ounces", "Package Dimensions: 4.37 x 3.31 x 2.68 inches", "Item model number: B5155RB", "Is Discontinued By Manufacturer: No", "Item Package Quantity: 1", "Number Of Holes: 2", "Batteries Included?: No", "Batteries Required?: No", "ASIN: B006X628BE", "Date First Available: January 13, 2012" ]
 }],
   isLoading: false
     };

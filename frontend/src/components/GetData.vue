@@ -29,11 +29,12 @@
         <Column field="image_count" header="Number of Images" />
         <Column field="product_details" header="Details">
           <template #body="slotProps">
-            <ul>
-              <li v-for="(li, i) in slotProps.data.product_details" :key="i">
-                {{ li }}
-              </li>
-            </ul>
+            <table>
+              <tr v-for="(li, i) in slotProps.data.product_details" :key="i">
+                <th>{{ li.split(':')[0] }}</th>
+                <td>{{ li.split(':')[1] }}</td>
+              </tr>
+            </table>
           </template>
         </Column>
         <Column field="props" header="Props">
@@ -110,7 +111,6 @@ export default {
           ],
           image_count: 5,
           product_details: [
-            "EXAMPLE DATA NOT REAL",
             "Manufacturer: Mantra Enterprise",
             "Part Number: B5155RB",
             "Item Weight: 15.2 ounces",
@@ -126,7 +126,7 @@ export default {
           ],
           props: [],
           lifestyle: [],
-          packs: [],
+          packs: [{ name: "BEVERAGE"}],
         },
       ],
       isLoading: false,
@@ -136,13 +136,13 @@ export default {
         { id: 3, name: "POTTED FERN" },
       ],
       lifestyle: [
-        { id: 1, name: "BATHROOM", keywords: ["bath", "bathroom", "towel"] },
-        { id: 2, name: "BEDROOM", keywords: ["bed", "bedroom", "sleep"]},
-        { id: 3, name: "E-COMM WHITE" },
-        { id: 4, name: "ENTRY" },
-        { id: 5, name: "KITCHEN", keywords: ["kitchen", "cook", "cooking", "food", "grocery", "eat"]},
-        { id: 6, name: "LAUNDRY", keywords: ["laundry"]},
-        { id: 7, name: "LIVINGROOM", keywords: ["sofa", "chair"] },
+        { id: 'flddr5G2wWLwoaN77', name: "BATHROOM", keywords: ["bath", "bathroom", "towel"] },
+        { id: 'fldAuv5qIUg8bgbHz', name: "BEDROOM", keywords: ["bed", "bedroom", "sleep"]},
+        { id: 'fldPM53EUkGB4GbEL', name: "E-COMM WHITE" },
+        { id: 'fldi9OaPMdWzJrSDD', name: "ENTRY" },
+        { id: 'fldhpPbwbUJHvk6Vb', name: "KITCHEN", keywords: ["kitchen", "cook", "cooking", "food", "grocery", "eat"]},
+        { id: 'fldr5sZXPF4ogQrfB', name: "LAUNDRY", keywords: ["laundry"]},
+        { id: 'fldhyGEpimNoNjn8A', name: "LIVINGROOM", keywords: ["sofa", "chair"] },
       ],
       packs: [
         { id: 1, name: "AMAZON" },

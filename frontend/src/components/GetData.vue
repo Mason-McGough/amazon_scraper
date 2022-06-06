@@ -1,7 +1,7 @@
 <template>
   <div class="outer-wrapper">
     <div class="input-wrapper">
-      <Textarea v-model="urls" />
+      <Textarea v-model="urls" placeholder="paste URLs here. separate each URL with a new line. do not include blank lines."/>
       <ProgressSpinner v-if="isLoading" />
       <Button @click="getData" v-else>get data</Button>
     </div>

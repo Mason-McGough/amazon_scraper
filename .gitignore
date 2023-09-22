@@ -2,6 +2,9 @@
 venv
 .env
 
+# OS
+.DS_Store
+
 # Data
 *.txt
 *.csv

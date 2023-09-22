@@ -1,4 +1,20 @@
+# Env
 venv
 .env
+
+# Data
+*.txt
+*.csv
+*.json
+*.jsonl
+
+# Compiled
+*__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+
+# Scraper
 scraper/logs
 scraper/.scrapy/httpcache

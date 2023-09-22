@@ -7,6 +7,7 @@ venv
 *.csv
 *.json
 *.jsonl
+!scraper/data/example_urls.txt
 
 # Compiled
 *__pycache__/

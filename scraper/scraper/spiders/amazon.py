@@ -4,19 +4,27 @@ import js2xml
 from urllib.parse import urlencode
 from scraper.items import AmazonProduct
 from dotenv import load_dotenv
+
 load_dotenv()
 
-pages = [ 'https://www.amazon.com/dp/B00HJAHXP4?ref=myi_title_dp',
-          'https://www.amazon.com/dp/B00HJAKZSQ?ref=myi_title_dp',
-          'https://www.amazon.com/dp/B00VPGVBGK?ref=myi_title_dp',
-          'https://www.amazon.com/dp/B00XB2XZJM?ref=myi_title_dp&th=1',
-          'https://www.amazon.com/dp/B01GETPDGG?ref=myi_title_dp&th=1',
-          'https://www.amazon.com/dp/B01GEUC782?ref=myi_title_dp&th=1',
-          'https://www.amazon.com/dp/B01H9Q6NQM?ref=myi_title_dp'
-        ]
 
-def get_url(url):
-    payload = {'api_key': os.environ.get('PROXY_API_KEY'), 'url': url}
+def parse_urls_file(file_path: str) -> list[str]:
+    """
+    Parse a file of urls into a list of urls
+
+    Args:
+        file_path (str): Path to file containing urls
+    
+    Returns:
+        urls (list): List of urls
+    """
+    with open(file_path, 'r') as f:
+        urls = f.read().splitlines()
+
+    return urls
+
+def get_url(url, api_key):
+    payload = {'api_key': api_key, 'url': url}
     proxy_url = 'http://api.scraperapi.com/?' + urlencode(payload)
     return proxy_url
 
@@ -25,12 +33,22 @@ class AmazonSpider(scrapy.Spider):
     allowed_domains = ['amazon.com']
     start_urls = ['http://amazon.com/']
 
-
-
     def start_requests(self):
-        for page in pages:
-            yield scrapy.Request(url = get_url(page), callback=self.parse)
+        # Get args to crawler
+        urls_file_path = getattr(self, "urls_file", None)
+        if urls_file_path is None:
+            raise ValueError('No urls_file path provided')
 
+        pages = parse_urls_file(urls_file_path)
+
+        # Get API key from .env file
+        try:
+            api_key = os.environ.get('PROXY_API_KEY')
+        except KeyError:
+            EnvironmentError('PROXY_API_KEY not set in .env')
+
+        for page in pages:
+            yield scrapy.Request(url = get_url(page, api_key), callback=self.parse)
 
     def parse(self, response):
         amazon_product = AmazonProduct()

@@ -5,8 +5,32 @@
 
 frontend requires `.env` with variable `VITE_PROXY_API_KEY`. this key is provided by ScraperAPI.
 ## scraper server
+
 `scrapyrt`
 
+### setup
+
+Make a copy of the `.env.example` file:
+
+```bash
+cd scraper
+cp .env.example .env
+```
+
+Fill in the `PROXY_API_KEY` in the `.env` file with your ScraperAPI key.
+
+### example usage
+
+To parse a collection of Amazon product pages, create a file with one URL per line, then run the scraper with the `urls_file` argument:
+
+```bash
+cd scraper
+scrapy runspider scraper/spiders/amazon.py \
+    -a urls_file=data/example_urls.txt \
+    -o example_urls.jsonl
+```
+
+The -o argument specifies the output file and will append to any existing file. Use -O to overwrite the output file.
 
 # Amazon Seller Partner API
 ## Definitions

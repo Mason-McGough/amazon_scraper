@@ -1,4 +1,30 @@
+# Env
 venv
 .env
+
+# OS
+.DS_Store
+
+# Data
+*.txt
+*.csv
+*.json
+*.jsonl
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.tif
+*.tiff
+!scraper/data/example_urls.txt
+
+# Compiled
+*__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+
+# Scraper
 scraper/logs
 scraper/.scrapy/httpcache

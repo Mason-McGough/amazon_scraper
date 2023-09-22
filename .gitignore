@@ -10,6 +10,12 @@ venv
 *.csv
 *.json
 *.jsonl
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.tif
+*.tiff
 !scraper/data/example_urls.txt
 
 # Compiled

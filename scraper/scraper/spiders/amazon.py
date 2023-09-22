@@ -15,8 +15,8 @@ pages = [ 'https://www.amazon.com/dp/B00HJAHXP4?ref=myi_title_dp',
           'https://www.amazon.com/dp/B01H9Q6NQM?ref=myi_title_dp'
         ]
 
-def get_url(url):
-    payload = {'api_key': os.environ.get('PROXY_API_KEY'), 'url': url}
+def get_url(url, api_key):
+    payload = {'api_key': api_key, 'url': url}
     proxy_url = 'http://api.scraperapi.com/?' + urlencode(payload)
     return proxy_url
 
@@ -25,11 +25,14 @@ class AmazonSpider(scrapy.Spider):
     allowed_domains = ['amazon.com']
     start_urls = ['http://amazon.com/']
 
-
-
     def start_requests(self):
+        try:
+            api_key = os.environ.get('PROXY_API_KEY')
+        except KeyError:
+            EnvironmentError('PROXY_API_KEY not set in .env')
+
         for page in pages:
-            yield scrapy.Request(url = get_url(page), callback=self.parse)
+            yield scrapy.Request(url = get_url(page, api_key), callback=self.parse)
 
 
     def parse(self, response):
